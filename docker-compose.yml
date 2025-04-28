@@ -1,0 +1,43 @@
+version: "3.8"
+services:
+  db:
+    image: postgres:latest
+    container_name: database
+    environment:
+      POSTGRES_USER: ${DATABASE_USERNAME}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+      POSTGRES_DB: ${DATABASE_NAME}
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      # - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+  # backend:
+  #   build: ./backend
+  #   container_name: backend
+  #   ports:
+  #     - "3000:3000"
+  #   environment:
+  #     - DATABASE_URL=postgres://myuser:mypassword@db:5432/mydb
+  #     - CHOKIDAR_USEPOLLING=true
+  #     - WEBPACK_POLL=1000
+  #   depends_on:
+  #     - db
+  #   volumes:
+  #     - ./backend:/app
+  #     - /app/node_modules
+  # frontend:
+  #   build: ./frontend
+  #   container_name: frontend
+  #   ports:
+  #     - "5173:5173"
+  #   environment:
+  #     - VITE_API_URL=http://localhost:3000
+  #     - CHOKIDAR_USEPOLLING=true
+  #   depends_on:
+  #     - backend
+  #   volumes:
+  #     - ./frontend:/app
+  #     - /app/node_modules
+volumes:
+  pgdata:
